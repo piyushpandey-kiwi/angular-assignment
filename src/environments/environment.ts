@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   baseApiURL: 'https://angular-assignment-4f983.firebaseio.com/',
+  firbaseApiKey: 'AIzaSyDahKqKUDmT-FC5C8gw7dRlwkSIPyazL2I',
 };
 
 /*

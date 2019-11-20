@@ -16,7 +16,7 @@ const httpOptions = {
 
 export class RequestService {
 
-    private baseApiUrl: string;
+    baseApiUrl: string;
 
     constructor(
         private httpClient: HttpClient) {

@@ -3,6 +3,8 @@ import { throwError, BehaviorSubject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 
+import { environment } from '@environments/environment';
+
 // Models
 import { IAuth } from '@models/IAuth';
 
@@ -14,11 +16,13 @@ import { RequestService } from '@services/request.service';
 export class AuthService {
     authUser: IAuth;
     user: BehaviorSubject<IAuth>;
+    firbaseApiKey: string;
 
     constructor(
         private requestService: RequestService,
     ) {
         this.user = new BehaviorSubject<IAuth>(null);
+        this.firbaseApiKey = environment.firbaseApiKey;
     }
 
     isUserLoggedIn(): boolean {
@@ -31,7 +35,7 @@ export class AuthService {
     }
 
     signup(authUser: IAuth[]) {
-        return this.requestService.authUser<IAuth>('https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyDahKqKUDmT-FC5C8gw7dRlwkSIPyazL2I', authUser).pipe(
+        return this.requestService.authUser<IAuth>('https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key='+this.firbaseApiKey, authUser).pipe(
             catchError(this.handleError),
             map(responseData => {
                 return responseData;
@@ -40,7 +44,7 @@ export class AuthService {
     }
 
     login(authUser: IAuth[]) {
-        return this.requestService.authUser<IAuth>('https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyDahKqKUDmT-FC5C8gw7dRlwkSIPyazL2I', authUser).pipe(
+        return this.requestService.authUser<IAuth>('https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key='+this.firbaseApiKey, authUser).pipe(
             catchError(this.handleError),
             map(responseData => {
                 localStorage.setItem('userData', JSON.stringify(responseData));
