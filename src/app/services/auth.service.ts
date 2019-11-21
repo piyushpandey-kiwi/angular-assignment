@@ -21,7 +21,7 @@ export class AuthService {
     constructor(
         private requestService: RequestService,
     ) {
-        this.user = new BehaviorSubject<IAuth>(null);
+        this.user = new BehaviorSubject<IAuth>(this.hasUserData());
         this.firbaseApiKey = environment.firbaseApiKey;
     }
 
@@ -34,8 +34,12 @@ export class AuthService {
         return false;
     }
 
+    hasUserData() {
+        return JSON.parse(localStorage.getItem('userData'));
+    }
+
     signup(authUser: IAuth[]) {
-        return this.requestService.authUser<IAuth>('https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key='+this.firbaseApiKey, authUser).pipe(
+        return this.requestService.authUser<IAuth>('https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=' + this.firbaseApiKey, authUser).pipe(
             catchError(this.handleError),
             map(responseData => {
                 return responseData;
@@ -44,7 +48,7 @@ export class AuthService {
     }
 
     login(authUser: IAuth[]) {
-        return this.requestService.authUser<IAuth>('https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key='+this.firbaseApiKey, authUser).pipe(
+        return this.requestService.authUser<IAuth>('https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=' + this.firbaseApiKey, authUser).pipe(
             catchError(this.handleError),
             map(responseData => {
                 localStorage.setItem('userData', JSON.stringify(responseData));
