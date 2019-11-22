@@ -51,8 +51,4 @@ export class RequestService {
         return this.httpClient.delete<T>(`${this.baseApiUrl}${endPoint}`);
     }
 
-    public deleteWithBody<T>(endPoint: string, data: object) {
-        return this.httpClient.request<T>('delete', `${this.baseApiUrl}${endPoint}`, { body: data });
-    }
-
 }

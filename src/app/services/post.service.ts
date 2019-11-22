@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Observable, BehaviorSubject, Subject, throwError } from 'rxjs';
+import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, map, takeUntil } from 'rxjs/operators';
 
 // Models
@@ -14,15 +14,10 @@ import { RequestService } from '@services/request.service';
 export class PostService {
     posts: IPost[] = [];
     post: IPost;
-    postsChanged = new Subject<IPost[]>();
     private destroyed$ = new Subject<IPost[]>();
-    private postData: BehaviorSubject<IPost>;
-
     constructor(
         private requestService: RequestService,
-    ) {
-        this.postData = new BehaviorSubject<IPost>({} as IPost);
-    }
+    ) {}
 
     setPosts(posts: IPost[]) {
         this.posts = posts;
