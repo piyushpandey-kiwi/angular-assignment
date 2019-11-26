@@ -8,6 +8,8 @@ import { SharedModule } from '@shared/shared.module';
 // Components
 import { AuthComponent } from '@modules/auth/auth/auth.component';
 import { RegisterComponent } from '@modules/auth/auth/register/register.component';
+import { ForgotPasswordComponent } from '@modules/auth/auth/forgot-password/forgot-password.component';
+import { ChangePasswordComponent } from '@modules/auth/auth/change-password/change-password.component';
 
 // Services
 import { AuthService } from '@services/auth.service';
@@ -20,7 +22,9 @@ import { AuthService } from '@services/auth.service';
   ],
   declarations: [
     AuthComponent,
-    RegisterComponent
+    RegisterComponent,
+    ForgotPasswordComponent,
+    ChangePasswordComponent
   ],
   providers: [
     AuthService

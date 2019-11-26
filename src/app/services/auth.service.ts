@@ -56,6 +56,24 @@ export class AuthService {
         );
     }
 
+    forgotPassword(authUser: IAuth[]) {
+        return this.requestService.authUser<IAuth>('https://www.googleapis.com/identitytoolkit/v3/relyingparty/getOobConfirmationCode?key=' + this.firbaseApiKey, authUser).pipe(
+            catchError(this.handleError),
+            map(responseData => {
+                return responseData;
+            })
+        );
+    }
+
+    changePassword(authUser: IAuth[]) {
+        return this.requestService.authUser<IAuth>('https://www.googleapis.com/identitytoolkit/v3/relyingparty/setAccountInfo?key=' + this.firbaseApiKey, authUser).pipe(
+            catchError(this.handleError),
+            map(responseData => {
+                return responseData;
+            })
+        );
+    }
+
     logout() {
         localStorage.removeItem('userData');
         this.user.next(null);

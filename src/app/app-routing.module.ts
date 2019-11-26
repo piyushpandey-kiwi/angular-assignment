@@ -5,9 +5,9 @@ import { AuthGuard } from '@modules/auth/auth/auth.guard';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-   { path: 'home', loadChildren: '@modules/home/home.module#HomeModule' },
-   { path: 'auth', loadChildren: '@modules/auth/auth.module#AuthModule' },
-   { path: 'posts', loadChildren: '@modules/post/post.module#PostModule', canActivate: [AuthGuard] },
+   { path: 'home', loadChildren: () => import('@modules/home/home.module').then(m => m.HomeModule) },
+   { path: 'auth', loadChildren: () => import('@modules/auth/auth.module').then(m => m.AuthModule) },
+   { path: 'posts', loadChildren: () => import('@modules/post/post.module').then(m => m.PostModule), canActivate: [AuthGuard] },
 ];
 
 @NgModule({

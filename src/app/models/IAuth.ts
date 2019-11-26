@@ -6,4 +6,5 @@ export interface IAuth {
     expiresIn: string;
     localId: string;
     registered?: boolean;
+    requestType?: 'PASSWORD_RESET';
 }
